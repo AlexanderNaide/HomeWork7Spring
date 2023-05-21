@@ -1,54 +1,31 @@
 package ru.gb.homework7spring.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jdk.jfr.Unsigned;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@Table(name = "students")
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "name_s")
     private String name;
 
+    @Column(name = "mark_s")
     private int mark;
 
-    public Student() {
-    }
+    @OneToOne(mappedBy = "elder")
+    private Group managedGroup;
 
-    public Student(String name) {
-        this.name = name;
-    }
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getMark() {
-        return mark;
-    }
-
-    public void setMark(int mark) {
-        this.mark = mark;
-    }
 }
-
-
-/*
-   CREATE TABLE `test`.`student` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `mark` INT NULL,
-   PRIMARY KEY (`id`));
-  */

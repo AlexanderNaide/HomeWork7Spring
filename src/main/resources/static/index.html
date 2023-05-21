@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="index.js"></script>
+
+    <title>HomeWork</title>
+</head>
+
+
+
+<body>
+<div class="container" ng-controller="indexController">
+
+    <div class="row align-items-start" style="height: 140px; padding: 30px;">
+            <h1>GeekBrains   HomeWork 7 (Spring)</h1>
+    </div>
+
+    <div class="row align-items-start">
+<!--        <div class="col-3">-->
+
+<!--            <h4>Фильтр</h4>-->
+
+<!--            <form id="formFilter" novalidate ng-submit="addFilter()">-->
+
+<!--                <label> Категория-->
+<!--                    <select name="cat" ng-options="cat for cat in CategoriesList" ng-change="catForm()" ng-model="filter.cat" class="form-control" style="margin-bottom: 30px">-->
+<!--                        <option value="">Все</option>-->
+<!--                    </select>-->
+<!--                </label>-->
+
+
+<!--                <label> Подкатегория-->
+<!--                    <select id="sub" name="sub_cat" ng-options="sub_cat for sub_cat in SubCategoriesList" ng-change="manufacturer()" ng-model="filter.sub_cat" class="form-control" style="margin-bottom: 30px">-->
+<!--                        <option value="">Все</option>-->
+<!--                    </select>-->
+<!--                </label>-->
+
+<!--                <label> Производитель-->
+<!--                    <select name="man" ng-options="man for man in ManufacturerList" ng-model="filter.man" class="form-control" style="margin-bottom: 30px">-->
+<!--                        <option value="">Все</option>-->
+<!--                    </select>-->
+<!--                </label>-->
+
+<!--                <label>Минимальная цена-->
+<!--                <input class="form-control" type="number" ng-model="filter.min" id="minPrice">-->
+<!--                </label>-->
+
+<!--                <label>Максимальная цена-->
+<!--                <input class="form-control" type="number" ng-model="filter.max" id="maxPrice" style="margin-bottom: 30px">-->
+<!--                </label>-->
+
+<!--                <button type="button" class="btn btn-secondary" ng-click="resetFilter()">Сбросить</button>-->
+<!--                <button class="btn btn-success" type="submit">Применить</button>-->
+
+<!--            </form>-->
+
+
+<!--        </div>-->
+        <div class="col-9">
+            <nav class="navbar bg-light">
+                <div class="container-fluid">
+                    <div class="col-8">
+                        <a class="navbar-brand"> <h3>Список продуктов</h3></a>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" ng-model="value" ng-change="searchForm()">
+                    </div>
+                </div>
+            </nav>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Наименование</th>
+                    <th>Артикул</th>
+                    <th>Цена</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="p in ProductsList" ng-click="getProduct(p.id)" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                    <td>{{p.id}}</td>
+                    <td>{{p.title}}</td>
+                    <td>{{p.article}}</td>
+                    <td>{{p.price}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item {{first}}"><a class="page-link" ng-click="pageStart()">1</a></li>
+                    <li class="page-item {{first10}}"><a class="page-link" ng-click="pageClick(-10)">-10</a></li>
+                    <li class="page-item {{first}}"><a class="page-link" ng-click="pageClick(-1)">-1</a></li>
+                    <li class="page-item active"><a class="page-link">{{page1}}</a></li>
+                    <li class="page-item {{last}}"><a class="page-link" ng-click="pageClick(+1)">+1</a></li>
+                    <li class="page-item {{last10}}"><a class="page-link" ng-click="pageClick(+10)">+10</a></li>
+                    <li class="page-item {{last}}"><a class="page-link" ng-click="pageFinish()">{{totalNumber}}</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="form" novalidate>
+
+                    <div class="modal-header">
+                        <label class="modal-title" id="exampleModalCenterTitle">Информация о товаре</label>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <h5 class="modal-title">{{Product.title}}</h5>
+                            <label>Артикул: {{Product.article}}</label>
+                            <h6>Цена: {{Product.price}}руб.</h6>
+                            <label>Производитель: {{Product.manufacturer}}</label>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <h6>Описание:</h6>
+                            <div ng-repeat="l in ProductDescription">{{l}} <br></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
