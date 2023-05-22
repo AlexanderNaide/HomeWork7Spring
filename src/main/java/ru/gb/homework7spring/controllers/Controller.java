@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gb.homework7spring.dao.GroupDao;
+import ru.gb.homework7spring.dao.StudentDao;
 import ru.gb.homework7spring.model.Group;
 import ru.gb.homework7spring.model.Student;
 import ru.gb.homework7spring.services.GroupService;
 import ru.gb.homework7spring.services.StudentService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/students")
@@ -60,6 +63,16 @@ public class Controller {
         } else {
             return null;
         }
+    }
+
+    @GetMapping
+    public List<StudentDao> getStudents(){
+        return studentService.findAll().stream().map(StudentDao::new).toList();
+    }
+
+    @GetMapping("/{id}")
+    public StudentDao getStudent(@RequestParam Long id){
+        return new StudentDao(studentService.findById(id));
     }
 
 

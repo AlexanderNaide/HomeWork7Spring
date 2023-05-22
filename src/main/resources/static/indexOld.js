@@ -1,5 +1,5 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8080/students';
+    const contextPath = 'http://localhost:8080/products';
     let number = 1;
     let totalNumber;
 
@@ -36,28 +36,39 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
     };
 
-
-    // есть
-    $scope.loadStudents = function () {
+    $scope.loadProducts = function () {
         $http({
             url: contextPath,
             method: 'GET'
         }).then(function (response) {
-            // $scope.pagination(response);
-            // console.log(response.data)
-            $scope.StudentsList = response.data;
+            $scope.pagination(response);
+            $scope.ProductsList = response.data.content;
         });
     };
 
+    $scope.categories = function () {
+        $http({
+            url: contextPath + "/categories",
+            method: 'GET'
+        }).then(function (response) {
+            $scope.CategoriesList = response.data;
+        });
+    };
 
-    // есть
-    $scope.getStudent = function (id) {
+    $scope.getProduct = function (id) {
         $http({
             url: contextPath + "/" + id,
             method: 'GET'
         }).then(function (response) {
-            console.log(response.data)
-            $scope.Student = response.data;
+            $scope.Product = response.data;
+            let descStr = response.data.description;
+            let st = descStr.indexOf("<");
+            if(st === -1){
+                $scope.ProductDescription = descStr.split("; ");
+            } else {
+                let desc = descStr.slice(0, st);
+                $scope.ProductDescription = desc.split("; ");
+            }
         });
     };
 
@@ -148,7 +159,8 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     };
 
     $scope.filter = null;
-    $scope.loadStudents();
+    $scope.loadProducts();
+    $scope.categories();
     $scope.manufacturer();
     $('#sub').prop( 'disabled',true );
 

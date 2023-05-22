@@ -22,4 +22,11 @@ public class StudentDao {
         this.mark = student.getMark();
         this.group = student.getGroup().getGroupNumber();
     }
+
+    public StudentDao(Object[] rows) {
+        this.id = (Long) rows[0];
+        this.name = (String) rows[1];
+        this.mark = (int) rows[2];
+        this.group = (String) rows[3];
+    }
 }
