@@ -3,10 +3,7 @@ package ru.gb.homework7spring.controllers;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.gb.homework7spring.dao.GroupDao;
 import ru.gb.homework7spring.dao.StudentDao;
 import ru.gb.homework7spring.model.Group;
@@ -70,9 +67,14 @@ public class Controller {
         return studentService.findAll().stream().map(StudentDao::new).toList();
     }
 
-    @GetMapping("/{id}")
-    public StudentDao getStudent(@RequestParam Long id){
-        return new StudentDao(studentService.findById(id));
+    @GetMapping("/st/{id}")
+    public StudentDao getStudentInfo(@PathVariable String id){
+        return new StudentDao(studentService.findById(Long.parseLong(id)));
+    }
+
+    @GetMapping("/gr/{group}")
+    public GroupDao getGroupInfo(@PathVariable String group){
+        return new GroupDao(groupService.getGroupByNumber(group));
     }
 
 

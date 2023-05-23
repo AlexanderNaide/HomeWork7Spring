@@ -25,4 +25,8 @@ public class GroupService {
         return groupRepository.findById(id).orElse(null);
     }
 
+    public Group getGroupByNumber(String group){
+        return groupRepository.findByGroupNumber(group).orElse(null);
+    }
+
 }

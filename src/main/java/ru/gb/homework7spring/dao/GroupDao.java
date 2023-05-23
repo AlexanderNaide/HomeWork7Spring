@@ -15,12 +15,12 @@ public class GroupDao {
 
     private StudentDao elder;
 
-    private List<StudentDao> students;
+    private int studentsCount;
 
     public GroupDao(Group group) {
         this.id = group.getId();
         this.groupNumber = group.getGroupNumber();
         this.elder = new StudentDao(group.getElder());
-        this.students = group.getStudents().stream().map(StudentDao::new).toList();
+        this.studentsCount = group.getStudents().size();
     }
 }

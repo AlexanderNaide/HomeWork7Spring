@@ -53,7 +53,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     // есть
     $scope.getStudent = function (id) {
         $http({
-            url: contextPath + "/" + id,
+            url: contextPath + "/st/" + id,
             method: 'GET'
         }).then(function (response) {
             console.log(response.data)
@@ -61,23 +61,24 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     };
 
-    $scope.manufacturer = function () {
-        let cat;
-        let sub_cat;
-        if ($scope.filter !== null){
-            cat = $scope.filter.cat !== "Все" ? $scope.filter.cat : null;
-            sub_cat = $scope.filter.sub_cat !== "Все" ? $scope.filter.sub_cat : null;
-        }
+    // есть
+    $scope.getGroup = function (group) {
         $http({
-            url: contextPath + "/man",
-            method: 'POST',
-            params: {
-                cat: cat,
-                sub_cat: sub_cat
-            }
+            url: contextPath + "/gr/" + group,
+            method: 'GET'
         }).then(function (response) {
-            $scope.ManufacturerList = response.data;
+            // console.log(response.data)
+            $scope.Group = response.data;
         });
+    };
+
+
+    //есть
+    $scope.saveStudent = function () {
+        $http.post(contextPath + '/add-product', $scope.newProduct)
+            .then(function (response) {
+                $scope.loadProducts();
+            });
     };
 
     $scope.searchForm = function () {
@@ -149,7 +150,6 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
     $scope.filter = null;
     $scope.loadStudents();
-    $scope.manufacturer();
     $('#sub').prop( 'disabled',true );
 
 });
