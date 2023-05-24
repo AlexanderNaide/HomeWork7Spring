@@ -36,15 +36,14 @@
                     </div>
 
                     <div class="col-2">
-                        <svg data-bs-toggle="modal" data-bs-target="#modalCheckStudent" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                        <svg ng-click="getGroupList()" data-bs-toggle="modal" data-bs-target="#modalCheckStudent" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
                             <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                             <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                         </svg>
                     </div>
 
                     <div class="col-3">
-
-                        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" ng-model="value" ng-change="searchForm()">
+                        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" ng-model="value" ng-change="updateStudents()">
                     </div>
                 </div>
             </nav>
@@ -127,36 +126,18 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group mb-3">
-
-                            <label style="display: flex">Имя:<input class="form-control" type="text" ng-model="CheckStudent.name" style="margin-left: 106px"> </label>
-                            <label style="display: flex">Группа:<input class="form-control" type="text" ng-model="CheckStudent.group" style="margin-left: 10px"> </label>
-                            <label style="display: flex">Баллы:<input class="form-control" type="text" ng-model="CheckStudent.mark" style="margin-left: 87px"> </label>
-
-<!--                            <div class="form-group col-md-6">-->
-<!--                                <label for="newProductTitle">Наименование</label>-->
-<!--                                <input class="form-control" type="text" ng-model="newProduct.title" id="newProductTitle">-->
-<!--                            </div>-->
-<!--                            <div class="form-group col-md-6">-->
-<!--                                <label for="newProductCost">Цена</label>-->
-<!--                                <input class="form-control" type="number" ng-model="newProduct.price" id="newProductCost">-->
-<!--                            </div>-->
-
-
-
-
-
-
-
-
-
-<!--                            <label style="display: flex">Имя:<h5 style="margin-left: 106px">{{Student.name}}</h5> </label>-->
-<!--                            <label ng-click="getGroup(Student.group)" data-bs-toggle="modal" data-bs-target="#modalGroupInfoWindow" style="display: flex">Группа:<h5 style="margin-left: 87px">{{Student.group}}</h5> </label>-->
-<!--                            <label style="display: flex">Суммарный балл:<h5 style="margin-left: 10px">{{Student.mark}}</h5> </label>-->
-                            <p>Дополнительная информация:</p> <h6>{{Student.info}}</h6>
+                            <label style="display: flex">Имя:<input class="form-control" type="text" ng-model="CheckStudent.name" style="margin-left: 28px"> </label>
+                            <label style="display: flex">
+                                Группа:
+                                <select ng-options="group.groupNumber for group in GroupList"  class="form-control" ng-model="CheckStudent.group" style="margin-left: 10px" required>
+                                    <option value="">-- Выберите группу --</option>
+                                </select>
+                            </label>
+                            <label style="display: flex">Баллы:<input class="form-control" type="text" ng-model="CheckStudent.mark" style="margin-left: 14px"> </label>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button class="btn btn-success" type="submit">Сохранить</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                     </div>
                 </form>

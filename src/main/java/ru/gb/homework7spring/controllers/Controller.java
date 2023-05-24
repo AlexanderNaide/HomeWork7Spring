@@ -77,5 +77,19 @@ public class Controller {
         return new GroupDao(groupService.getGroupByNumber(group));
     }
 
+    @GetMapping("/gr")
+    public List<GroupDao> getGroupList(){
+        return groupService.findAll().stream().map(GroupDao::new).toList();
+    }
+
+    @PostMapping("/add-student")
+    public void addStudent(@RequestBody Student student){
+        studentService.save(student);
+    }
+
+    @PostMapping("/search")
+    public List<StudentDao> searchStudents(@RequestParam String searchValue){
+        return studentService.search(searchValue).stream().map(StudentDao::new).toList();
+    }
 
 }

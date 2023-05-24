@@ -7,6 +7,7 @@ import ru.gb.homework7spring.model.Group;
 import ru.gb.homework7spring.repositories.GroupRepository;
 import ru.gb.homework7spring.repositories.StudentsRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,8 +15,6 @@ import java.util.Optional;
 public class GroupService {
 
     private final GroupRepository groupRepository;
-
-//    private final StudentService studentService;
 
     public void save(Group group){
         groupRepository.save(group);
@@ -27,6 +26,10 @@ public class GroupService {
 
     public Group getGroupByNumber(String group){
         return groupRepository.findByGroupNumber(group).orElse(null);
+    }
+
+    public List<Object[]> findAll(){
+        return groupRepository.findListGroups();
     }
 
 }

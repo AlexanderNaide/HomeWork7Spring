@@ -13,8 +13,6 @@ public class StudentService {
 
     private final StudentsRepository studentsRepository;
 
-//    private final GroupService groupService;
-
     public void save(Student student){
         studentsRepository.save(student);
     }
@@ -25,5 +23,9 @@ public class StudentService {
 
     public List<Object[]> findAll(){
         return studentsRepository.findListStudents();
+    }
+
+    public List<Object[]> search(String searchValue){
+        return studentsRepository.searchListStudents(searchValue);
     }
 }

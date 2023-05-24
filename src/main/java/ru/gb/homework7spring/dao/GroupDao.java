@@ -23,4 +23,9 @@ public class GroupDao {
         this.elder = new StudentDao(group.getElder());
         this.studentsCount = group.getStudents().size();
     }
+
+    public GroupDao(Object[] rows) {
+        this.id = (Long) rows[0];
+        this.groupNumber = (String) rows[1];
+    }
 }

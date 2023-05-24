@@ -15,4 +15,8 @@ public interface StudentsRepository extends JpaRepository<Student, Long> {
     @Modifying
     @Query("select s.id, s.name, s.mark, g.groupNumber from Student as s left join Group as g on s.group = g")
     List<Object[]> findListStudents();
+
+    @Modifying
+    @Query("select s.id, s.name, s.mark, g.groupNumber from Student as s left join Group as g on s.group = g where s.name like %?1% or g.groupNumber like %?1%")
+    List<Object[]> searchListStudents(String searchValue);
 }
